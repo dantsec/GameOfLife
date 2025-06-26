@@ -23,4 +23,13 @@ using namespace std;
  */
 void applyRule(vector<vector<int>>*, vector<vector<int>>*, int, int);
 
+/**
+ * @brief Simulates the "Game of Life".
+ *
+ * @param vector<vector<int>>*  Pointer to the current grid.
+ *
+ * @return void
+ */
+void simulate(vector<vector<int>>*);
+
 #endif // RULE_HPP

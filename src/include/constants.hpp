@@ -5,8 +5,8 @@
  * @brief Grid dimensions.
  *
  */
-#define ROWS    20
-#define COLS    20
+#define ROWS        3
+#define COLS        3
 
 /**
  * @brief Cell states.
@@ -21,12 +21,12 @@
  * @brief Probability of a cell being alive at the start (using random generated grid).
  *
  */
-#define PROB    30
+#define PROB        80
 
 /**
  * @brief Amount of generations to simulate.
  *
  */
-#define GENS    3
+#define GENS        3
 
 #endif // CONSTANTS_HPP

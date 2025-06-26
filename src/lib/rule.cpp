@@ -1,6 +1,8 @@
+#include <iostream>
 #include <vector>
 
 #include "../include/constants.hpp"
+#include "../include/grid.hpp"
 #include "../include/rule.hpp"
 
 using namespace std;
@@ -24,5 +26,25 @@ void applyRule(vector<vector<int>>* CURR_GRID, vector<vector<int>>* NEXT_GRID, i
         (*NEXT_GRID)[ROW][COL] = (neighboursSum == 3) ? ALIVE_INT : DEAD_INT;
     } else {
         (*NEXT_GRID)[ROW][COL] = (neighboursSum < 2 || neighboursSum > 3) ? DEAD_INT : ALIVE_INT;
+    }
+}
+
+void simulate(vector<vector<int>>* GRID) {
+    vector<vector<int>> NEXT(ROWS, vector<int>(COLS));
+
+    for (int gen = 1; gen <= GENS; gen++) {
+        cout << "Generation #" << gen << ": " << endl;
+
+        showGrid(*GRID);
+
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLS; j++) {
+                applyRule(GRID, &NEXT, i, j);
+            }
+        }
+
+        *GRID = NEXT;
+
+        cout << endl;
     }
 }
