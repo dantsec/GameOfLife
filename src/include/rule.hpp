@@ -14,23 +14,23 @@ using namespace std;
  *   - Any live cell with fewer than two live neighbours dies (underpopulation).
  *   - Any live cell with more than three live neighbours dies (overpopulation).
  *
- * @param vector<vector<int>>*  Pointer to the current grid.
- * @param vector<vector<int>>*  Pointer to the next grid where the results will be stored.
- * @param int                   The row index of the cell being processed.
- * @param int                   The column index of the cell being processed.
+ * @param vector<vector<int>>*  currGrid Pointer to the current grid.
+ * @param vector<vector<int>>*  nextGrid Pointer to the next grid where the results will be stored.
+ * @param int                   row       The row index of the cell being processed.
+ * @param int                   col       The column index of the cell being processed.
  *
  * @return void
  */
-void applyRule(vector<vector<int>>*, vector<vector<int>>*, int, int);
+void applyRule(vector<vector<int>>* currGrid, vector<vector<int>>* nextGrid, int row, int col);
 
 /**
  * @brief Simulates the rule in the grid.
  *
- * @param vector<vector<int>>*  Pointer to the current grid.
- * @param int                   Number of generations to simulate.
+ * @param vector<vector<int>>*  grid Pointer to the current grid.
+ * @param int                   gens Number of generations to simulate.
  *
  * @return void
  */
-void simulate(vector<vector<int>>*, int);
+void simulate(vector<vector<int>>* grid, int gens);
 
 #endif // RULE_HPP

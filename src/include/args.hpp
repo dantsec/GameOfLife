@@ -17,6 +17,8 @@ void usage();
  * @param int cols Represents the number of columns in the grid.
  * @param int gens Represents the number of generations to simulate.
  * @param int prob Represents the probability of a cell being alive at the start.
+ *
+ * @return void
  */
 void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &prob);
 

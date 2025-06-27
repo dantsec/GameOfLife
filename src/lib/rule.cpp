@@ -7,49 +7,49 @@
 
 using namespace std;
 
-void applyRule(vector<vector<int>>* CURR_GRID, vector<vector<int>>* NEXT_GRID, int ROW, int COL) {
-    int currCell = (*CURR_GRID)[ROW][COL];
+void applyRule(vector<vector<int>>* currGrid, vector<vector<int>>* nextGrid, int row, int col) {
+    int currCell = (*currGrid)[row][col];
 
-    int rows = CURR_GRID->size();
-    int cols = (*CURR_GRID)[0].size();
+    int rows = currGrid->size();
+    int cols = (*currGrid)[0].size();
 
     int neighboursSum =
-        + ((ROW != 0 && COL != 0)                ? (*CURR_GRID)[ROW - 1][COL - 1] : 0)      \
-        + ((ROW != 0)                            ? (*CURR_GRID)[ROW - 1][COL]     : 0)      \
-        + ((ROW != 0 && COL != cols - 1)         ? (*CURR_GRID)[ROW - 1][COL + 1] : 0)      \
-                                                                                            \
-        + ((COL != 0)                            ? (*CURR_GRID)[ROW][COL - 1]     : 0)      \
-        + ((COL != cols - 1)                     ? (*CURR_GRID)[ROW][COL + 1]     : 0)      \
-                                                                                            \
-        + ((COL != 0 && ROW != rows - 1)         ? (*CURR_GRID)[ROW + 1][COL - 1] : 0)      \
-        + ((ROW != rows - 1)                     ? (*CURR_GRID)[ROW + 1][COL]     : 0)      \
-        + ((COL != cols - 1 && ROW != rows - 1)  ? (*CURR_GRID)[ROW + 1][COL + 1] : 0);
+        + ((row != 0 && col != 0)                ? (*currGrid)[row - 1][col - 1] : 0)   \
+        + ((row != 0)                            ? (*currGrid)[row - 1][col]     : 0)   \
+        + ((row != 0 && col != cols - 1)         ? (*currGrid)[row - 1][col + 1] : 0)   \
+                                                                                        \
+        + ((col != 0)                            ? (*currGrid)[row][col - 1]     : 0)   \
+        + ((col != cols - 1)                     ? (*currGrid)[row][col + 1]     : 0)   \
+                                                                                        \
+        + ((col != 0 && row != rows - 1)         ? (*currGrid)[row + 1][col - 1] : 0)   \
+        + ((row != rows - 1)                     ? (*currGrid)[row + 1][col]     : 0)   \
+        + ((col != cols - 1 && row != rows - 1)  ? (*currGrid)[row + 1][col + 1] : 0);
 
     if (currCell == DEAD_INT) {
-        (*NEXT_GRID)[ROW][COL] = (neighboursSum == 3) ? ALIVE_INT : DEAD_INT;
+        (*nextGrid)[row][col] = (neighboursSum == 3) ? ALIVE_INT : DEAD_INT;
     } else {
-        (*NEXT_GRID)[ROW][COL] = (neighboursSum < 2 || neighboursSum > 3) ? DEAD_INT : ALIVE_INT;
+        (*nextGrid)[row][col] = (neighboursSum < 2 || neighboursSum > 3) ? DEAD_INT : ALIVE_INT;
     }
 }
 
-void simulate(vector<vector<int>>* GRID, int gens) {
-    int rows = GRID->size();
-    int cols = (*GRID)[0].size();
+void simulate(vector<vector<int>>* grid, int gens) {
+    int rows = grid->size();
+    int cols = (*grid)[0].size();
 
-    vector<vector<int>> NEXT(rows, vector<int>(cols));
+    vector<vector<int>> next(rows, vector<int>(cols));
 
     for (int gen = 1; gen <= gens; gen++) {
         cout << "Generation #" << gen << ": " << endl;
 
-        showGrid(*GRID);
+        showGrid(*grid);
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                applyRule(GRID, &NEXT, i, j);
+                applyRule(grid, &next, i, j);
             }
         }
 
-        *GRID = NEXT;
+        *grid = next;
 
         cout << endl;
     }

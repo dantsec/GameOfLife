@@ -15,12 +15,12 @@ void usage() {
 }
 
 void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &prob) {
-    int help_flag = 0;
+    int helpFlag = 0;
 
     int opt;
 
     struct option longopts[] = {
-        { "help", no_argument, &help_flag, 1 },
+        { "help", no_argument, &helpFlag, 1 },
         { "rows", required_argument, NULL, 'r' },
         { "cols", required_argument, NULL, 'c' },
         { "gens", required_argument, NULL, 'g' },
@@ -34,7 +34,7 @@ void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &pro
     gens = GENS;
     prob = PROB;
 
-    if (argc <= 1 || help_flag) {
+    if (argc <= 1 || helpFlag) {
         usage();
         exit(0);
     }
@@ -78,7 +78,7 @@ void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &pro
 
                 break;
             case 'h':
-                help_flag = 1;
+                helpFlag = 1;
                 break;
             case '?':
                 cerr << "Use -h or --help for usage information." << endl;

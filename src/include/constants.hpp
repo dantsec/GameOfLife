@@ -5,8 +5,8 @@
  * @brief Grid dimensions.
  *
  */
-#define ROWS        3
-#define COLS        3
+#define ROWS        10
+#define COLS        10
 
 /**
  * @brief Cell states.
@@ -27,6 +27,6 @@
  * @brief Amount of generations to simulate.
  *
  */
-#define GENS        3
+#define GENS        5
 
 #endif // CONSTANTS_HPP
