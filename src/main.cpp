@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <cstdlib>
 #include <chrono>
 
 #include "./include/grid.hpp"
