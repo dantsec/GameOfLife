@@ -2,9 +2,11 @@
 #include <vector>
 #include <chrono>
 
+#include "./include/constants.hpp"
 #include "./include/grid.hpp"
 #include "./include/rule.hpp"
 #include "./include/args.hpp"
+#include "./include/creator.hpp"
 
 using namespace std;
 
@@ -12,7 +14,7 @@ int main(int argc, char *argv[]) {
     srand(time(NULL));
 
     /**
-     * Parse and create necessary vars.
+     * Create and parse previous necessary vars.
      */
     int rows,
         cols,
@@ -24,11 +26,18 @@ int main(int argc, char *argv[]) {
 
     parseArgs(argc, argv, rows, cols, gens, prob, filePath, mode);
 
-    vector<vector<int>> grid(rows, vector<int>(cols));
+    /**
+     * Enter in the pattern creator mode.
+     */
+    if (mode == CREATOR_MODE) {
+        patternCreator();
+    }
 
     /**
-     * Populate the grid.
+     * Create and populate the grid.
      */
+    vector<vector<int>> grid(rows, vector<int>(cols));
+
     filePath.empty()
         ? createRandomGrid(&grid, prob)
         : createGridFromFile(&grid, filePath);

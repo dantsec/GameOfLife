@@ -41,11 +41,13 @@
 │   ├── include/              # Header files
 │   │   ├── args.hpp          # Command line argument parsing
 │   │   ├── constants.hpp     # Default configuration values
+│   │   ├── creator.hpp       # Pattern creation
 │   │   ├── grid.hpp          # Grid creation and display
 │   │   ├── rule.hpp          # Game of Life rule implementation
 │   │   └── utils.hpp         # CLI utils
 │   ├── lib/                  # Implementation files
 │   │   ├── args.cpp
+│   │   ├── creator.cpp
 │   │   ├── grid.cpp
 │   │   ├── rule.cpp
 │   │   └── utils.cpp
@@ -69,7 +71,7 @@ Grid Configuration:
 Simulation Settings:
   -g, --gens <num>      Set the number of generations to simulate. Default: 5
   -p, --prob <num>      Set the probability (0–100) of a cell being alive at start. Default: 80%
-  -m, --mode <num>      Set the simulation mode (0: Normal, 1: Iterative, 2: Movie). Default: 0
+  -m, --mode <num>      Set the simulation mode (0: Normal, 1: Iterative, 2: Movie, 3: Creator). Default: 0
 
 General:
   -h, --help            Show this help message and exit.
@@ -104,6 +106,9 @@ make
 
 # Load a pattern from file and simulate in movie mode
 ./main -r 20 -c 20 -g 50 -f patterns/glider.txt -m 2
+
+# Entering in the creator mode
+./main -m 3
 
 # Show help
 ./main --help

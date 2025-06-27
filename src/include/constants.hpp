@@ -36,6 +36,7 @@
 #define NORMAL_MODE     0
 #define ITERATIVE_MODE  1
 #define MOVIE_MODE      2
+#define CREATOR_MODE    3
 #define MOVIE_DELAY     150
 
 #endif // CONSTANTS_HPP
