@@ -27,7 +27,14 @@ int main(int argc, char *argv[]) {
         ? createRandomGrid(&grid, prob)
         : createGridFromFile(&grid, filePath);
 
+    // Compute amount of time taken to simulate.
+    clock_t start = clock();
     simulate(&grid, gens);
+    clock_t end = clock();
+
+    double elapsed = double(end - start) / CLOCKS_PER_SEC;
+
+    cout << "Elapsed time: " << elapsed << " seconds." << endl;
 
     return 0;
 }
