@@ -1,2 +1,170 @@
-- TODO:
-    - Improve usage message text.
+<p align="center">
+    <img src="https://hackerlogo.com/images/HackerLogo.png">
+</p>
+
+<br>
+
+<p align="center">
+    <img src="https://img.shields.io/github/license/dantsec/GameOfLife?color=black&logo=github&logoColor=white&style=for-the-badge">
+    <img src="https://img.shields.io/github/issues/dantsec/GameOfLife?color=black&logo=github&logoColor=white&style=for-the-badge">
+    <img src="https://img.shields.io/github/stars/dantsec/GameOfLife?color=black&label=STARS&logo=github&logoColor=white&style=for-the-badge">
+    <img src="https://img.shields.io/github/forks/dantsec/GameOfLife?color=black&logo=github&logoColor=white&style=for-the-badge">
+    <img src="https://img.shields.io/github/languages/code-size/dantsec/GameOfLife?color=black&logo=github&logoColor=white&style=for-the-badge">
+</p>
+
+# Conway's Game of Life 🎲
+
+> A C++ implementation of Conway's Game of Life cellular automaton. This simulation demonstrates how complex patterns can emerge from simple rules, featuring both random grid generation and pattern file loading capabilities.
+
+## Authors 👥
+
+- For more information see my blog and my contributions to community.
+    - [**dantsec**](https://www.github.com/dantsec)
+
+## Documents 📂
+
+- [**License**](./LICENSE)
+- [**Patterns**](./patterns)
+
+## Tech Stack 🧑‍💻
+
+- This project was developed with the following technologies:
+    - [**C++**](https://isocpp.org/) (Core implementation language)
+    - [**Make**](https://www.gnu.org/software/make/) (Build system)
+    - [**g++**](https://gcc.gnu.org/) (Compiler)
+
+## Project Structure 🏗️
+
+```
+├── src/
+│   ├── main.cpp              # Main program entry point
+│   ├── include/              # Header files
+│   │   ├── args.hpp          # Command line argument parsing
+│   │   ├── constants.hpp     # Default configuration values
+│   │   ├── grid.hpp          # Grid creation and display
+│   │   └── rule.hpp          # Game of Life rule implementation
+│   ├── lib/                  # Implementation files
+│   │   ├── args.cpp
+│   │   ├── grid.cpp
+│   │   └── rule.cpp
+│   └── obj/                  # Compiled object files
+├── patterns/
+│   └── glider.txt            # Example glider pattern
+├── docs/
+│   └── readme-header.png     # README header image
+├── Makefile                  # Build configuration
+└── LICENSE                   # MIT License
+```
+
+## Command Line Options 🛠️
+
+```
+Grid Configuration:
+  -r, --rows <num>     Set the number of grid rows. Default: 10
+  -c, --cols <num>     Set the number of grid columns. Default: 10
+  -f, --file <path>    Load an initial grid pattern from a file
+
+Simulation Settings:
+  -g, --gens <num>     Set the number of generations to simulate. Default: 5
+  -p, --prob <num>     Set the probability (0-100) of a cell being alive. Default: 80%
+
+General:
+  -h, --help           Show help message and exit
+```
+
+## Installation / Run Locally ⚙️
+
+- **Important**: Prerequisites - having [**g++ compiler**](https://gcc.gnu.org/) and [**Make**](https://www.gnu.org/software/make/) installed.
+
+- Clone and enter the project directory:
+
+```bash
+git clone https://github.com/dantsec/cellular-automata.git && cd cellular-automata/
+```
+
+- Build the project:
+
+```bash
+make
+```
+
+- Run with default settings (10x10 grid, 5 generations, 80% probability):
+
+```bash
+./main
+```
+
+- Run with custom parameters:
+
+```bash
+# Custom grid size and generations
+./main -r 20 -c 30 -g 10 -p 50
+
+# Load a pattern from file
+./main -f patterns/glider.txt -g 20
+
+# Show help
+./main --help
+```
+
+- Clean project:
+
+```bash
+make clean
+```
+
+## The Game 👾
+
+### Game Rules 📋
+
+- The simulation follows Conway's original Game of Life rules:
+    - **Birth**: A dead cell with exactly 3 live neighbors becomes alive;
+    - **Survival**: A live cell with 2 or 3 live neighbors stays alive;
+    - **Death**: A live cell with fewer than 2 neighbors dies (underpopulation);
+    - **Death**: A live cell with more than 3 neighbors dies (overpopulation).
+
+### Pattern Files 📁
+
+- Pattern files use a simple format where:
+    - `1` represents a live cell;
+    - `0` represents a dead cell;
+    - Cells are separated by spaces;
+    - Each row is on a new line;
+    - By default, it's a 20x20 grid.
+
+- For example, **glider pattern**:
+
+```
+0 0 0 0 0
+0 0 1 0 0
+0 0 0 1 0
+0 1 1 1 0
+0 0 0 0 0
+```
+
+## Todo List 📌
+
+- Priority (**1**)
+    - [ ] Add more classic patterns (beacon, toad, pulsar, ...);
+    - [ ] Add interactive mode with step-by-step execution.
+- Priority (**2**)
+    - [ ] Transform generations into a image or anything that you can see the progress.
+
+## Contributing 🛠️
+
+```bash
+# Create a fork from the original repository and clone it.
+git clone https://github.com/YOUR_USERNAME/GameOfLife.git
+
+# Enter into the project folder.
+cd GameOfLife/
+
+# Create a new branch with the name feat-[BRANCH_NAME].
+git checkout -b feat-[BRANCH_NAME]
+
+# Make your changes and commit them.
+git add . && git commit -m "feat(<scope>): YOUR_COMMIT_MESSAGE"
+
+# Push your branch and open a pull request.
+git push origin feat-[BRANCH_NAME]
+```
