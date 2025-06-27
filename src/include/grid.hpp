@@ -11,10 +11,11 @@ using namespace std;
  * Alive cells are represented by ALIVE_INT and dead cells by DEAD_INT.
  *
  * @param vector<vector<int>>* represents the grid to be created.
+ * @param int represents the probability (in percentage) of a cell being alive at the start.
  *
  * @return void
  */
-void createGrid(vector<vector<int>>*);
+void createGrid(vector<vector<int>>*, int);
 
 /**
  * @brief Show the grid vector object.

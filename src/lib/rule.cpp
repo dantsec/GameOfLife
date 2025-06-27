@@ -10,17 +10,20 @@ using namespace std;
 void applyRule(vector<vector<int>>* CURR_GRID, vector<vector<int>>* NEXT_GRID, int ROW, int COL) {
     int currCell = (*CURR_GRID)[ROW][COL];
 
+    int rows = CURR_GRID->size();
+    int cols = (*CURR_GRID)[0].size();
+
     int neighboursSum =
         + ((ROW != 0 && COL != 0)                ? (*CURR_GRID)[ROW - 1][COL - 1] : 0)      \
         + ((ROW != 0)                            ? (*CURR_GRID)[ROW - 1][COL]     : 0)      \
-        + ((ROW != 0 && COL != COLS - 1)         ? (*CURR_GRID)[ROW - 1][COL + 1] : 0)      \
+        + ((ROW != 0 && COL != cols - 1)         ? (*CURR_GRID)[ROW - 1][COL + 1] : 0)      \
                                                                                             \
         + ((COL != 0)                            ? (*CURR_GRID)[ROW][COL - 1]     : 0)      \
-        + ((COL != COLS - 1)                     ? (*CURR_GRID)[ROW][COL + 1]     : 0)      \
+        + ((COL != cols - 1)                     ? (*CURR_GRID)[ROW][COL + 1]     : 0)      \
                                                                                             \
-        + ((COL != 0 && ROW != ROWS - 1)         ? (*CURR_GRID)[ROW + 1][COL - 1] : 0)      \
-        + ((ROW != ROWS - 1)                     ? (*CURR_GRID)[ROW + 1][COL]     : 0)      \
-        + ((COL != COLS - 1 && ROW != ROWS - 1)  ? (*CURR_GRID)[ROW + 1][COL + 1] : 0);
+        + ((COL != 0 && ROW != rows - 1)         ? (*CURR_GRID)[ROW + 1][COL - 1] : 0)      \
+        + ((ROW != rows - 1)                     ? (*CURR_GRID)[ROW + 1][COL]     : 0)      \
+        + ((COL != cols - 1 && ROW != rows - 1)  ? (*CURR_GRID)[ROW + 1][COL + 1] : 0);
 
     if (currCell == DEAD_INT) {
         (*NEXT_GRID)[ROW][COL] = (neighboursSum == 3) ? ALIVE_INT : DEAD_INT;
@@ -29,16 +32,19 @@ void applyRule(vector<vector<int>>* CURR_GRID, vector<vector<int>>* NEXT_GRID, i
     }
 }
 
-void simulate(vector<vector<int>>* GRID) {
-    vector<vector<int>> NEXT(ROWS, vector<int>(COLS));
+void simulate(vector<vector<int>>* GRID, int gens) {
+    int rows = GRID->size();
+    int cols = (*GRID)[0].size();
 
-    for (int gen = 1; gen <= GENS; gen++) {
+    vector<vector<int>> NEXT(rows, vector<int>(cols));
+
+    for (int gen = 1; gen <= gens; gen++) {
         cout << "Generation #" << gen << ": " << endl;
 
         showGrid(*GRID);
 
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLS; j++) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
                 applyRule(GRID, &NEXT, i, j);
             }
         }

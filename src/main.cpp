@@ -3,7 +3,6 @@
 #include <cstdlib>
 #include <ctime>
 
-#include "./include/constants.hpp"
 #include "./include/grid.hpp"
 #include "./include/rule.hpp"
 #include "./include/args.hpp"
@@ -11,7 +10,7 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-    // srand(time(NULL));
+    srand(time(NULL));
 
     int rows,
         cols,
@@ -20,16 +19,11 @@ int main(int argc, char *argv[]) {
 
     parseArgs(argc, argv, rows, cols, gens, prob);
 
-    cout << "Rows: " << rows << endl;
-    cout << "Cols: " << cols << endl;
-    cout << "Generations: " << gens << endl;
-    cout << "Probability: " << prob << "%" << endl;
+    vector<vector<int>> GRID(rows, vector<int>(cols));
 
-    // vector<vector<int>> GRID(ROWS, vector<int>(COLS));
+    createGrid(&GRID, prob);
 
-    // createGrid(&GRID);
-
-    // simulate(&GRID);
+    simulate(&GRID, gens);
 
     return 0;
 }

@@ -24,12 +24,13 @@ using namespace std;
 void applyRule(vector<vector<int>>*, vector<vector<int>>*, int, int);
 
 /**
- * @brief Simulates the "Game of Life".
+ * @brief Simulates the rule in the grid.
  *
  * @param vector<vector<int>>*  Pointer to the current grid.
+ * @param int                   Number of generations to simulate.
  *
  * @return void
  */
-void simulate(vector<vector<int>>*);
+void simulate(vector<vector<int>>*, int);
 
 #endif // RULE_HPP
