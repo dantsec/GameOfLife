@@ -4,6 +4,16 @@
 #include <vector>
 
 /**
+ * @brief Checks if the user wants to proceed to the next generation.
+ *
+ * This function prompts the user for input and returns true if the user
+ * wants to proceed, or false if the user wants to stop the simulation.
+ *
+ * @return bool
+ */
+bool proceedToNextGeneration();
+
+/**
  * @brief Applies the rules of the "Game of Life" to a cell in the grid.
  *
  * The rule is:
@@ -26,9 +36,10 @@ void applyRule(std::vector<std::vector<int>>* currGrid, std::vector<std::vector<
  *
  * @param std::vector<std::vector<int>>*    grid Pointer to the current grid.
  * @param int                               gens Number of generations to simulate.
+ * @param int                               mode Simulation mode (values are defined in constants.hpp).
  *
  * @return void
  */
-void simulate(std::vector<std::vector<int>>* grid, int gens);
+void simulate(std::vector<std::vector<int>>* grid, int gens, int mode);
 
 #endif // RULE_HPP

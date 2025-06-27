@@ -29,4 +29,11 @@
  */
 #define GENS        5
 
+/**
+ * @brief Possible modes of simulation.
+ *
+ */
+#define ITERATIVE_MODE 1
+#define NORMAL_MODE    0
+
 #endif // CONSTANTS_HPP

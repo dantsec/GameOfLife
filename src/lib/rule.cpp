@@ -4,8 +4,23 @@
 #include "../include/constants.hpp"
 #include "../include/grid.hpp"
 #include "../include/rule.hpp"
+#include "../include/utils.hpp"
 
 using namespace std;
+
+bool proceedToNextGeneration() {
+    string input;
+
+    cout << "Proceed to next generation? [Y/n]: ";
+
+    getline(cin, input);
+
+    if (input == "n" || input == "N") {
+        return false;
+    }
+
+    return true;
+}
 
 void applyRule(vector<vector<int>>* currGrid, vector<vector<int>>* nextGrid, int row, int col) {
     int currCell = (*currGrid)[row][col];
@@ -32,7 +47,7 @@ void applyRule(vector<vector<int>>* currGrid, vector<vector<int>>* nextGrid, int
     }
 }
 
-void simulate(vector<vector<int>>* grid, int gens) {
+void simulate(vector<vector<int>>* grid, int gens, int mode) {
     int rows = grid->size();
     int cols = (*grid)[0].size();
 
@@ -46,6 +61,18 @@ void simulate(vector<vector<int>>* grid, int gens) {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 applyRule(grid, &next, i, j);
+            }
+        }
+
+        if (mode == ITERATIVE_MODE) {
+            if (!proceedToNextGeneration()) {
+                cout << endl;
+                break;
+            }
+
+            // Preserves the console output for the last generation.
+            if (gen < gens - 1) {
+                clearConsole();
             }
         }
 
