@@ -6,13 +6,24 @@
 using namespace std;
 
 void usage() {
-    cout << "usage: ./main [OPTIONS]" << endl;
-    cout << "   -h, --help\t\t" << "Print this help and exit." << endl;
-    cout << "   -r, --rows\t\t" << "Set quantity of grid rows. DEFAULT=" << ROWS << endl;
-    cout << "   -c, --cols\t\t" << "Set quantity of grid cols. DEFAULT=" << COLS << endl;
-    cout << "   -g, --gens\t\t" << "Set quantity of gens to play. DEFAULT=" << GENS << endl;
-    cout << "   -p, --prob\t\t" << "Set probability to make a cell alive at the start. DEFAULT=" << PROB << endl;
-    cout << "   -f, --file\t\t" << "Set a file path to read a grid pattern. You will use a grid from a file." << endl;
+    cout << "Usage: ./main [OPTIONS]\n\n";
+
+    cout << "Grid Configuration:\n";
+    cout << "  -r, --rows <num>\tSet the number of grid rows. Default: " << ROWS << "\n";
+    cout << "  -c, --cols <num>\tSet the number of grid columns. Default: " << COLS << "\n";
+    cout << "  -f, --file <path>\tLoad an initial grid pattern from a file instead of using a random grid.\n\n";
+
+    cout << "Simulation Settings:\n";
+    cout << "  -g, --gens <num>\tSet the number of generations to simulate. Default: " << GENS << "\n";
+    cout << "  -p, --prob <num>\tSet the probability (0–100) of a cell being alive at start. Default: " << PROB << "%\n\n";
+
+    cout << "General:\n";
+    cout << "  -h, --help\t\tShow this help message and exit.\n\n";
+
+    cout << "Notes:\n";
+    cout << "  > If no input file is provided with --file, a grid will be randomly generated\n";
+    cout << "    based on the specified rows, columns, and probability.\n";
+    cout << "  > Probability only applies when generating a random grid (i.e., not using --file).\n";
 
     exit(0);
 }
