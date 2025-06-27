@@ -47,7 +47,7 @@ void showGrid(vector<vector<int>> grid) {
 
     for (size_t i = 0; i < rows; i++) {
         for (size_t j = 0; j < cols; j++) {
-            cout << (grid[i][j] == ALIVE_INT ? ALIVE_CHR : DEAD_CHR);
+            cout << (grid[i][j] == ALIVE_INT ? ALIVE_CHR : DEAD_CHR) << " ";
         }
 
         cout << endl;
