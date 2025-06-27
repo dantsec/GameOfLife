@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <chrono>
+#include <thread>
 
 #include "../include/constants.hpp"
 #include "../include/grid.hpp"
@@ -69,6 +71,15 @@ void simulate(vector<vector<int>>* grid, int gens, int mode) {
                 cout << endl;
                 break;
             }
+
+            // Preserves the console output for the last generation.
+            if (gen < gens - 1) {
+                clearConsole();
+            }
+        }
+
+        if (mode == MOVIE_MODE) {
+            this_thread::sleep_for(chrono::milliseconds(MOVIE_DELAY));
 
             // Preserves the console output for the last generation.
             if (gen < gens - 1) {

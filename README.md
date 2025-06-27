@@ -42,11 +42,13 @@
 │   │   ├── args.hpp          # Command line argument parsing
 │   │   ├── constants.hpp     # Default configuration values
 │   │   ├── grid.hpp          # Grid creation and display
-│   │   └── rule.hpp          # Game of Life rule implementation
+│   │   ├── rule.hpp          # Game of Life rule implementation
+│   │   └── utils.hpp         # CLI utils
 │   ├── lib/                  # Implementation files
 │   │   ├── args.cpp
 │   │   ├── grid.cpp
-│   │   └── rule.cpp
+│   │   ├── rule.cpp
+│   │   └── utils.cpp
 │   └── obj/                  # Compiled object files
 ├── patterns/
 │   └── glider.txt            # Example glider pattern
@@ -60,16 +62,22 @@
 
 ```
 Grid Configuration:
-  -r, --rows <num>     Set the number of grid rows. Default: 10
-  -c, --cols <num>     Set the number of grid columns. Default: 10
-  -f, --file <path>    Load an initial grid pattern from a file
+  -r, --rows <num>      Set the number of grid rows. Default: 20
+  -c, --cols <num>      Set the number of grid columns. Default: 20
+  -f, --file-path <string>      Load an initial grid pattern from a file instead of using a randomly generated grid.
 
 Simulation Settings:
-  -g, --gens <num>     Set the number of generations to simulate. Default: 5
-  -p, --prob <num>     Set the probability (0-100) of a cell being alive. Default: 80%
+  -g, --gens <num>      Set the number of generations to simulate. Default: 5
+  -p, --prob <num>      Set the probability (0–100) of a cell being alive at start. Default: 80%
+  -m, --mode <num>      Set the simulation mode (0: Normal, 1: Iterative, 2: Movie). Default: 0
 
 General:
-  -h, --help           Show help message and exit
+  -h, --help            Show this help message and exit.
+
+Notes:
+  > If no input file is provided with -f/--file-path, a grid will be randomly generated
+    based on the specified rows, columns, and probability.
+  > Probability only applies when generating a random grid (i.e., not using -f/--file-path).
 ```
 
 ## Installation / Run Locally ⚙️
@@ -88,20 +96,14 @@ git clone https://github.com/dantsec/cellular-automata.git && cd cellular-automa
 make
 ```
 
-- Run with default settings (10x10 grid, 5 generations, 80% probability):
-
-```bash
-./main
-```
-
-- Run with custom parameters:
+- Run:
 
 ```bash
 # Custom grid size and generations
 ./main -r 20 -c 30 -g 10 -p 50
 
-# Load a pattern from file
-./main -f patterns/glider.txt -g 20
+# Load a pattern from file and simulate in movie mode
+./main -r 20 -c 20 -g 50 -f patterns/glider.txt -m 2
 
 # Show help
 ./main --help
@@ -141,14 +143,6 @@ make clean
 0 1 1 1 0
 0 0 0 0 0
 ```
-
-## Todo List 📌
-
-- Priority (**1**)
-    - [ ] Add more classic patterns (beacon, toad, pulsar, ...);
-    - [ ] Add interactive mode with step-by-step execution.
-- Priority (**2**)
-    - [ ] Transform generations into a image or anything that you can see the progress.
 
 ## Contributing 🛠️
 

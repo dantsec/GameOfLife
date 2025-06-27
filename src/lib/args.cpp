@@ -12,20 +12,20 @@ void usage() {
     cout << "Grid Configuration:\n";
     cout << "  -r, --rows <num>\tSet the number of grid rows. Default: " << ROWS << "\n";
     cout << "  -c, --cols <num>\tSet the number of grid columns. Default: " << COLS << "\n";
-    cout << "  -f, --file <path>\tLoad an initial grid pattern from a file instead of using a random grid.\n\n";
+    cout << "  -f, --file-path <string>\tLoad an initial grid pattern from a file instead of using a randomly generated grid.\n\n";
 
     cout << "Simulation Settings:\n";
     cout << "  -g, --gens <num>\tSet the number of generations to simulate. Default: " << GENS << "\n";
-    cout << "  -p, --prob <num>\tSet the probability (0–100) of a cell being alive at start. Default: " << PROB << "%\n\n";
-    cout << "  -i, --iterative\tRun the simulation in iterative mode.\n\n";
+    cout << "  -p, --prob <num>\tSet the probability (0–100) of a cell being alive at start. Default: " << PROB << "%\n";
+    cout << "  -m, --mode <num>\tSet the simulation mode (0: Normal, 1: Iterative, 2: Movie). Default: " << NORMAL_MODE << "\n\n";
 
     cout << "General:\n";
     cout << "  -h, --help\t\tShow this help message and exit.\n\n";
 
     cout << "Notes:\n";
-    cout << "  > If no input file is provided with --file, a grid will be randomly generated\n";
+    cout << "  > If no input file is provided with -f/--file-path, a grid will be randomly generated\n";
     cout << "    based on the specified rows, columns, and probability.\n";
-    cout << "  > Probability only applies when generating a random grid (i.e., not using --file).\n";
+    cout << "  > Probability only applies when generating a random grid (i.e., not using -f/--file-path).\n";
 
     exit(0);
 }
@@ -41,8 +41,8 @@ void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &pro
         { "cols", required_argument, NULL, 'c' },
         { "gens", required_argument, NULL, 'g' },
         { "prob", required_argument, NULL, 'p' },
-        { "file", required_argument, NULL, 'f' },
-        { "iterative", no_argument, NULL, 'i' },
+        { "file-path", required_argument, NULL, 'f' },
+        { "mode", required_argument, NULL, 'm' },
         { 0 }
     };
 
@@ -58,7 +58,7 @@ void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &pro
         usage();
     }
 
-    while ((opt = getopt_long(argc, argv, "hr:c:g:p:f:i", longopts, NULL)) != -1) {
+    while ((opt = getopt_long(argc, argv, "hr:c:g:p:f:m:", longopts, NULL)) != -1) {
         switch (opt) {
             case 'r':
                 rows = atoi(optarg);
@@ -99,8 +99,17 @@ void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &pro
             case 'f':
                 filePath = optarg;
                 break;
-            case 'i':
-                mode = ITERATIVE_MODE;
+            case 'm':
+                mode = atoi(optarg);
+
+                if (mode != NORMAL_MODE
+                    && mode != ITERATIVE_MODE
+                    && mode != MOVIE_MODE
+                ) {
+                    cerr << "Error: Invalid mode. Must be 0 (Normal), 1 (Iterative), or 2 (Movie)." << endl;
+                    exit(1);
+                }
+
                 break;
             case 'h':
                 usage();
