@@ -38,7 +38,7 @@ void simulate(vector<vector<int>>* grid, int gens) {
 
     vector<vector<int>> next(rows, vector<int>(cols));
 
-    for (int gen = 1; gen <= gens; gen++) {
+    for (int gen = 0; gen < gens; gen++) {
         cout << "Generation #" << gen << ": " << endl;
 
         showGrid(*grid);

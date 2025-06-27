@@ -3,8 +3,6 @@
 
 #include <vector>
 
-using namespace std;
-
 /**
  * @brief Create a grid vector object based on probability.
  *
@@ -15,7 +13,7 @@ using namespace std;
  *
  * @return void
  */
-void createGrid(vector<vector<int>>* grid, int prob);
+void createRandomGrid(std::vector<std::vector<int>>* grid, int prob);
 
 /**
  * @brief Show the grid vector object.
@@ -26,6 +24,14 @@ void createGrid(vector<vector<int>>* grid, int prob);
  *
  * @return void
  */
-void showGrid(vector<vector<int>> grid);
+void showGrid(std::vector<std::vector<int>> grid);
+
+/**
+ * @brief Create a grid vector object based on a file path.
+ *
+ * @param std::vector<std::vector<int>>*    grid        represents the grid to be created.
+ * @param std::string                       filePath    represents the file path to read the grid pattern from.
+ */
+void createGridFromFile(std::vector<std::vector<int>>* grid, std::string filePath);
 
 #endif // GRID_HPP

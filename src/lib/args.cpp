@@ -11,10 +11,13 @@ void usage() {
     cout << "   -r, --rows\t\t" << "Set quantity of grid rows. DEFAULT=" << ROWS << endl;
     cout << "   -c, --cols\t\t" << "Set quantity of grid cols. DEFAULT=" << COLS << endl;
     cout << "   -g, --gens\t\t" << "Set quantity of gens to play. DEFAULT=" << GENS << endl;
-    cout << "   -p, --prob\t\t" << "Set probability to make a cell alive at the start. You will use a random generated grid. DEFAULT=" << PROB << endl;
+    cout << "   -p, --prob\t\t" << "Set probability to make a cell alive at the start. DEFAULT=" << PROB << endl;
+    cout << "   -f, --file\t\t" << "Set a file path to read a grid pattern. You will use a grid from a file." << endl;
+
+    exit(0);
 }
 
-void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &prob) {
+void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &prob, string &filePath) {
     int helpFlag = 0;
 
     int opt;
@@ -25,6 +28,7 @@ void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &pro
         { "cols", required_argument, NULL, 'c' },
         { "gens", required_argument, NULL, 'g' },
         { "prob", required_argument, NULL, 'p' },
+        { "file", required_argument, NULL, 'f' },
         { 0 }
     };
 
@@ -33,13 +37,13 @@ void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &pro
     cols = COLS;
     gens = GENS;
     prob = PROB;
+    filePath = "";
 
     if (argc <= 1 || helpFlag) {
         usage();
-        exit(0);
     }
 
-    while ((opt = getopt_long(argc, argv, "hr:c:g:p:", longopts, NULL)) != -1) {
+    while ((opt = getopt_long(argc, argv, "hr:c:g:p:f:", longopts, NULL)) != -1) {
         switch (opt) {
             case 'r':
                 rows = atoi(optarg);
@@ -77,8 +81,11 @@ void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &pro
                 }
 
                 break;
+            case 'f':
+                filePath = optarg;
+                break;
             case 'h':
-                helpFlag = 1;
+                usage();
                 break;
             case '?':
                 cerr << "Use -h or --help for usage information." << endl;

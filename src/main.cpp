@@ -17,13 +17,17 @@ int main(int argc, char *argv[]) {
         gens,
         prob;
 
-    parseArgs(argc, argv, rows, cols, gens, prob);
+    string filePath;
 
-    vector<vector<int>> GRID(rows, vector<int>(cols));
+    parseArgs(argc, argv, rows, cols, gens, prob, filePath);
 
-    createGrid(&GRID, prob);
+    vector<vector<int>> grid(rows, vector<int>(cols));
 
-    simulate(&GRID, gens);
+    filePath.empty()
+        ? createRandomGrid(&grid, prob)
+        : createGridFromFile(&grid, filePath);
+
+    simulate(&grid, gens);
 
     return 0;
 }
