@@ -18,9 +18,10 @@ void usage();
  * @param int           gens        Represents the number of generations to simulate.
  * @param int           prob        Represents the probability of a cell being alive at the start.
  * @param std::string&  filePath    Represents the path to a file containing a grid pattern.
+ * @param int           mode        Represents the mode of simulation (values are defined in constants.hpp).
  *
  * @return void
  */
-void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &prob, std::string &filePath);
+void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &prob, std::string &filePath, int &mode);
 
 #endif // ARGS_HPP

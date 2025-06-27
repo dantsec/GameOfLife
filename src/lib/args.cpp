@@ -2,6 +2,7 @@
 #include <getopt.h>
 
 #include "../include/constants.hpp"
+#include "../include/args.hpp"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ void usage() {
     cout << "Simulation Settings:\n";
     cout << "  -g, --gens <num>\tSet the number of generations to simulate. Default: " << GENS << "\n";
     cout << "  -p, --prob <num>\tSet the probability (0–100) of a cell being alive at start. Default: " << PROB << "%\n\n";
+    cout << "  -i, --iterative\tRun the simulation in iterative mode.\n\n";
 
     cout << "General:\n";
     cout << "  -h, --help\t\tShow this help message and exit.\n\n";
@@ -28,7 +30,7 @@ void usage() {
     exit(0);
 }
 
-void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &prob, string &filePath) {
+void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &prob, string &filePath, int &mode) {
     int helpFlag = 0;
 
     int opt;
@@ -40,6 +42,7 @@ void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &pro
         { "gens", required_argument, NULL, 'g' },
         { "prob", required_argument, NULL, 'p' },
         { "file", required_argument, NULL, 'f' },
+        { "iterative", no_argument, NULL, 'i' },
         { 0 }
     };
 
@@ -49,12 +52,13 @@ void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &pro
     gens = GENS;
     prob = PROB;
     filePath = "";
+    mode = NORMAL_MODE;
 
     if (argc <= 1 || helpFlag) {
         usage();
     }
 
-    while ((opt = getopt_long(argc, argv, "hr:c:g:p:f:", longopts, NULL)) != -1) {
+    while ((opt = getopt_long(argc, argv, "hr:c:g:p:f:i", longopts, NULL)) != -1) {
         switch (opt) {
             case 'r':
                 rows = atoi(optarg);
@@ -94,6 +98,9 @@ void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &pro
                 break;
             case 'f':
                 filePath = optarg;
+                break;
+            case 'i':
+                mode = ITERATIVE_MODE;
                 break;
             case 'h':
                 usage();
