@@ -6,17 +6,30 @@
 #include "./include/constants.hpp"
 #include "./include/grid.hpp"
 #include "./include/rule.hpp"
+#include "./include/args.hpp"
 
 using namespace std;
 
-int main() {
-    srand(time(NULL));
+int main(int argc, char *argv[]) {
+    // srand(time(NULL));
 
-    vector<vector<int>> GRID(ROWS, vector<int>(COLS));
+    int rows,
+        cols,
+        gens,
+        prob;
 
-    createGrid(&GRID);
+    parseArgs(argc, argv, rows, cols, gens, prob);
 
-    simulate(&GRID);
+    cout << "Rows: " << rows << endl;
+    cout << "Cols: " << cols << endl;
+    cout << "Generations: " << gens << endl;
+    cout << "Probability: " << prob << "%" << endl;
+
+    // vector<vector<int>> GRID(ROWS, vector<int>(COLS));
+
+    // createGrid(&GRID);
+
+    // simulate(&GRID);
 
     return 0;
 }
