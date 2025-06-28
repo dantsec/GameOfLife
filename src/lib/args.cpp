@@ -17,7 +17,7 @@ void usage() {
     cout << "Simulation Settings:\n";
     cout << "  -g, --gens <num>\tSet the number of generations to simulate. Default: " << GENS << "\n";
     cout << "  -p, --prob <num>\tSet the probability (0–100) of a cell being alive at start. Default: " << PROB << "%\n";
-    cout << "  -m, --mode <num>\tSet the simulation mode (0: Normal, 1: Iterative, 2: Movie). Default: " << NORMAL_MODE << "\n\n";
+    cout << "  -m, --mode <num>\tSet the simulation mode (0: Normal, 1: Iterative, 2: Movie, 3: Creator). Default: " << NORMAL_MODE << "\n\n";
 
     cout << "General:\n";
     cout << "  -h, --help\t\tShow this help message and exit.\n\n";
@@ -27,7 +27,7 @@ void usage() {
     cout << "    based on the specified rows, columns, and probability.\n";
     cout << "  > Probability only applies when generating a random grid (i.e., not using -f/--file-path).\n";
 
-    exit(0);
+    exit(EXIT_SUCCESS);
 }
 
 void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &prob, string &filePath, int &mode) {
@@ -65,7 +65,7 @@ void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &pro
 
                 if (rows <= 0) {
                     cerr << "Error: Invalid number of rows." << endl;
-                    exit(1);
+                    exit(EXIT_FAILURE);
                 }
 
                 break;
@@ -74,7 +74,7 @@ void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &pro
 
                 if (cols <= 0) {
                     cerr << "Error: Invalid number of cols." << endl;
-                    exit(1);
+                    exit(EXIT_FAILURE);
                 }
 
                 break;
@@ -83,7 +83,7 @@ void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &pro
 
                 if (gens <= 0) {
                     cerr << "Error: Invalid number of generations." << endl;
-                    exit(1);
+                    exit(EXIT_FAILURE);
                 }
 
                 break;
@@ -92,7 +92,7 @@ void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &pro
 
                 if (prob < 0 || prob > 100) {
                     cerr << "Error: Invalid probability value. Must be between 0 and 100." << endl;
-                    exit(1);
+                    exit(EXIT_FAILURE);
                 }
 
                 break;
@@ -105,9 +105,10 @@ void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &pro
                 if (mode != NORMAL_MODE
                     && mode != ITERATIVE_MODE
                     && mode != MOVIE_MODE
+                    && mode != CREATOR_MODE
                 ) {
-                    cerr << "Error: Invalid mode. Must be 0 (Normal), 1 (Iterative), or 2 (Movie)." << endl;
-                    exit(1);
+                    cerr << "Error: Invalid mode. Must be 0 (Normal), 1 (Iterative), 2 (Movie) or 3 (Pattern Editor)." << endl;
+                    exit(EXIT_FAILURE);
                 }
 
                 break;
@@ -116,7 +117,7 @@ void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &pro
                 break;
             case '?':
                 cerr << "Use -h or --help for usage information." << endl;
-                exit(1);
+                exit(EXIT_FAILURE);
             default:
                 break;
         }

@@ -8,6 +8,7 @@ UTILS := utils
 ARGS := args
 GRID := grid
 RULE := rule
+CREATOR := creator
 MAIN := main
 
 # @@Commands
@@ -17,6 +18,7 @@ all: $(OBJDIR)
 	g++ -c $(SRCDIR)/lib/args.cpp -o $(OBJDIR)/$(ARGS).o
 	g++ -c $(SRCDIR)/lib/grid.cpp -o $(OBJDIR)/$(GRID).o
 	g++ -c $(SRCDIR)/lib/rule.cpp -o $(OBJDIR)/$(RULE).o
+	g++ -c $(SRCDIR)/lib/creator.cpp -o $(OBJDIR)/$(CREATOR).o
 
     # Creates src/main.cpp object file
 	g++ -c $(SRCDIR)/main.cpp -o $(OBJDIR)/$(MAIN).o
@@ -27,6 +29,7 @@ all: $(OBJDIR)
         $(OBJDIR)/$(ARGS).o             \
         $(OBJDIR)/$(GRID).o             \
         $(OBJDIR)/$(RULE).o             \
+        $(OBJDIR)/$(CREATOR).o          \
         $(OBJDIR)/$(MAIN).o             \
         -o $(BINDIR)/$(MAIN)
 
