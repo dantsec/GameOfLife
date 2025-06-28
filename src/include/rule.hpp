@@ -4,16 +4,6 @@
 #include <vector>
 
 /**
- * @brief Checks if the user wants to proceed to the next generation.
- *
- * This function prompts the user for input and returns true if the user
- * wants to proceed, or false if the user wants to stop the simulation.
- *
- * @return bool
- */
-bool proceedToNextGeneration();
-
-/**
  * @brief Applies the rules of the "Game of Life" to a cell in the grid.
  *
  * The rule is:

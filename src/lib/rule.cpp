@@ -10,20 +10,6 @@
 
 using namespace std;
 
-bool proceedToNextGeneration() {
-    string input;
-
-    cout << "Proceed to next generation? [Y/n]: ";
-
-    getline(cin, input);
-
-    if (input == "n" || input == "N") {
-        return false;
-    }
-
-    return true;
-}
-
 void applyRule(vector<vector<int>>* currGrid, vector<vector<int>>* nextGrid, int row, int col) {
     int currCell = (*currGrid)[row][col];
 
@@ -67,7 +53,7 @@ void simulate(vector<vector<int>>* grid, int gens, int mode) {
         }
 
         if (mode == ITERATIVE_MODE) {
-            if (!proceedToNextGeneration()) {
+            if (!confirmWithDefault("Proceed to next generation? [Y/n]: ", 'Y')) {
                 cout << endl;
                 break;
             }

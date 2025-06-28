@@ -24,7 +24,7 @@ void createGridFromFile(vector<vector<int>>* grid, string filePath) {
 
     if (!my_file) {
         cerr << "Error opening the file." << endl;
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     int rows = grid->size();
