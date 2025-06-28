@@ -1,13 +1,13 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
-#include <fstream>
 #include <limits>
 
 #include "../include/constants.hpp"
 #include "../include/creator.hpp"
 #include "../include/grid.hpp"
 #include "../include/utils.hpp"
+#include "../include/files.hpp"
 
 using namespace std;
 
@@ -30,11 +30,11 @@ void getGridDimensions(int &rows, int &cols) {
 
 void getCellType(int &cell) {
     while (true) {
-        cout << "What kind of cell you want to create? [0=DEAD, 1=LIVE]: ";
+        cout << "What kind of cell you want to edit? [0=DEAD, 1=LIVE]: ";
         cin >> cell;
 
-        if (cell != 0 && cell != 1) {
-            cerr << "Invalid cell type! Please enter 0 for DEAD or 1 for LIVE." << endl;
+        if (cell != DEAD_INT && cell != ALIVE_INT) {
+            cerr << "Invalid choice! Please enter 0 for DEAD or 1 for LIVE." << endl;
             cerr << endl;
         } else {
             break;
@@ -56,12 +56,40 @@ void getCellPosition(int rows, int cols, int &px, int &py) {
     }
 }
 
+void getMode(int &mode) {
+    while (true) {
+        cout << "Do you want to create a new grid or edit an existing one? [3=Create, 4=Edit]: ";
+        cin >> mode;
+
+        if (mode != CREATOR_MODE && mode != EDITOR_MODE) {
+            cerr << "Invalid choice! Please enter 3 for Create or 4 for Edit." << endl;
+            cerr << endl;
+        } else {
+            break;
+        }
+    }
+}
+
+void getSubMode(int &subMode) {
+    while (true) {
+        cout << "Your file follows what format? [0=Grid, 1=Coordinates]: ";
+        cin >> subMode;
+
+        if (subMode != GRID_FORMAT && subMode != COORD_FORMAT) {
+            cerr << "Invalid choice! Please enter 0 for Grid or 1 for Coordinates." << endl;
+            cerr << endl;
+        } else {
+            break;
+        }
+    }
+}
+
 void editCell(vector<vector<int>> &grid) {
     int rows = grid.size();
     int cols = grid[0].size();
 
     cout << "Current Grid: " << endl;
-    showGrid(grid);
+    personalizedShowGrid(grid);
     cout << endl;
 
     int cell;
@@ -72,75 +100,53 @@ void editCell(vector<vector<int>> &grid) {
     getCellPosition(rows, cols, px, py);
     cout << endl;
 
-    grid[px][py] = cell;
+    // Inverted the coordinates to match the grid structure.
+    grid[py][px] = cell;
 
     cout << "Current Grid: " << endl;
-    showGrid(grid);
+    personalizedShowGrid(grid);
     cout << endl;
 }
 
-void getFileName(string &fileName) {
+void interactiveGridEditing(vector<vector<int>>& grid) {
     while (true) {
-        cout << "What is the name of your pattern? ";
-        cin >> fileName;
+        editCell(grid);
 
-        if (fileName.empty()) {
-            cerr << "Error: Pattern name cannot be empty." << endl;
-            cerr << endl;
-        } else {
+        // Clear input buffer before prompting for finish
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        if (!confirmWithDefault("Finish? [y/N]: ", 'N')) {
+            cout << endl;
             break;
         }
+        cout << endl;
     }
 }
 
-void createFilePath(string &filePath, string &fileName) {
-    filePath.append(PATTERNS_PATH);
-    filePath.append("/");
-    filePath.append(fileName);
-    filePath.append(".txt");
-}
+void createNewPattern() {
+    int rows, cols;
+    getGridDimensions(rows, cols);
+    cout << endl;
 
-void saveGridToFile(const vector<vector<int>> grid) {
+    vector<vector<int>> grid(rows, vector<int>(cols, 0));
+
+    interactiveGridEditing(grid);
+
     string fileName;
     getFileName(fileName);
 
     string filePath;
     createFilePath(filePath, fileName);
 
-    cout << "> Saving on: " << filePath << endl;
-
-    ofstream outputFile(filePath);
-
-    if (!outputFile.is_open()) {
-        cerr << "Error: Could not open file " << filePath << " for writing." << endl;
-        exit(EXIT_FAILURE);
-    }
-
-    int rows = grid.size();
-    int cols = grid[0].size();
-
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            outputFile << grid[i][j];
-
-            if (j < cols - 1) {
-                outputFile << " ";
-            }
-        }
-
-        outputFile << endl;
-    }
-
-    outputFile.close();
-
-    cout << "> Your pattern file is ready! Try with:" << endl;
-    cout << "\t./main -r " << rows << " -c " << cols << " -f " << filePath << endl;
+    saveGridToFile(grid, filePath);
 }
 
-void patternCreator() {
-    cout << "> Welcome to the Pattern Creator!" << endl;
-    cout << "> You can create a custom pattern interactively." << endl;
-    cout << "> Please follow the prompts to define your grid and cells." << endl << endl;
+void editExistingGridPattern() {
+    string fileName;
+    getFileName(fileName);
+
+    string filePath;
+    createFilePath(filePath, fileName);
 
     int rows, cols;
     getGridDimensions(rows, cols);
@@ -148,21 +154,60 @@ void patternCreator() {
 
     vector<vector<int>> grid(rows, vector<int>(cols, 0));
 
-    while (true) {
-        editCell(grid);
+    readGridFromFile(grid, filePath);
 
-        // Clear input buffer before prompting for finish.
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    interactiveGridEditing(grid);
 
-        if(!confirmWithDefault("Finish? [y/N]: ", 'N')) {
-            cout << endl;
-            break;
-        }
+    saveGridToFile(grid, filePath);
+}
 
-        cout << endl;
+void editExistingCoordinatePattern() {
+    string fileName;
+    getFileName(fileName);
+
+    string filePath;
+    createFilePath(filePath, fileName);
+
+    int rows, cols;
+    getGridDimensions(rows, cols);
+    cout << endl;
+
+    vector<vector<int>> grid(rows, vector<int>(cols, 0));
+
+    readCoordinateFromFile(grid, filePath);
+    cout << endl;
+
+    interactiveGridEditing(grid);
+
+    saveGridToFile(grid, filePath);
+}
+
+void patternCreator() {
+    cout << "> Welcome to the Pattern Creator!" << endl;
+    cout << "> You can create or edit a custom pattern interactively." << endl;
+    cout << "> Please follow the prompts to define your grid and cells." << endl << endl;
+
+    int mode;
+    getMode(mode);
+    cout << endl;
+
+    if (mode == CREATOR_MODE) {
+        createNewPattern();
     }
 
-    saveGridToFile(grid);
+    if (mode == EDITOR_MODE) {
+        int subMode;
+        getSubMode(subMode);
+        cout << endl;
+
+        if (subMode == GRID_FORMAT) {
+            editExistingGridPattern();
+        }
+
+        if (subMode == COORD_FORMAT) {
+            editExistingCoordinatePattern();
+        }
+    }
 
     exit(EXIT_SUCCESS);
 }

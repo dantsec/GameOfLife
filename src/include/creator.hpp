@@ -44,6 +44,28 @@ void getCellType(int &cell);
 void getCellPosition(int rows, int cols, int &px, int &py);
 
 /**
+ * @brief Get the mode of operation from user input.
+ *
+ * Prompts the user to select a mode of operation and validates the input.
+ *
+ * @param int&  mode    Reference to store the selected mode.
+ *
+ * @return void
+ */
+void getMode(int &mode);
+
+/**
+ * @brief Get the sub-mode of operation from user input.
+ *
+ * Prompts the user to select a sub-mode of operation and validates the input.
+ *
+ * @param int&  subMode    Reference to store the selected sub-mode.
+ *
+ * @return void
+ */
+void getSubMode(int &subMode);
+
+/**
  * @brief Edit a single cell in the grid interactively.
  *
  * Displays the current grid, prompts the user for cell type and position,
@@ -56,40 +78,34 @@ void getCellPosition(int rows, int cols, int &px, int &py);
 void editCell(std::vector<std::vector<int>> &grid);
 
 /**
- * @brief Get filename from user input.
+ * @brief Interactive loop for editing grid cells.
  *
- * Prompts the user to enter a name for their pattern file.
- *
- * @param std::string&  fileName    Reference to store the filename.
+ * @param std::vector<std::vector<int>>&   grid    The grid to edit.
  *
  * @return void
  */
-void getFileName(std::string &fileName);
+void interactiveGridEditing(std::vector<std::vector<int>>& grid);
 
 /**
- * @brief Create full file path for pattern file.
- *
- * Constructs the complete file path by combining the patterns directory,
- * filename, and .txt extension.
- *
- * @param std::string&  filePath    Reference to store the complete file path.
- * @param std::string&  fileName    Reference to the filename.
+ * @brief Create a new pattern from scratch.
  *
  * @return void
  */
-void createFilePath(std::string &filePath, std::string &fileName);
+void createNewPattern();
 
 /**
- * @brief Save grid to a file.
- *
- * Writes the grid to a text file in the specified format where 1 represents
- * alive cells and 0 represents dead cells, with spaces between values.
- *
- * @param std::vector<std::vector<int>>    grid    The grid to save to file.
+ * @brief Edit an existing pattern stored in grid format.
  *
  * @return void
  */
-void saveGridToFile(const std::vector<std::vector<int>> grid);
+void editExistingGridPattern();
+
+/**
+ * @brief Edit an existing pattern stored in coordinate format.
+ *
+ * @return void
+ */
+void editExistingCoordinatePattern();
 
 /**
  * @brief Main function to create a custom pattern interactively.

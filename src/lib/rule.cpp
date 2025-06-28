@@ -52,7 +52,7 @@ void simulate(vector<vector<int>>* grid, int gens, int mode) {
             }
         }
 
-        if (mode == ITERATIVE_MODE) {
+        if (mode == INTERACTIVE_MODE) {
             if (!confirmWithDefault("Proceed to next generation? [Y/n]: ", 'Y')) {
                 cout << endl;
                 break;
