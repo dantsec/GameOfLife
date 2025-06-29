@@ -35,29 +35,52 @@
 
 ## Project Structure 🏗️
 
-```
-├── src/
-│   ├── main.cpp              # Main program entry point
-│   ├── include/              # Header files
-│   │   ├── args.hpp          # Command line argument parsing
-│   │   ├── constants.hpp     # Default configuration values
-│   │   ├── creator.hpp       # Pattern creation
-│   │   ├── grid.hpp          # Grid creation and display
-│   │   ├── rule.hpp          # Game of Life rule implementation
-│   │   └── utils.hpp         # CLI utils
-│   ├── lib/                  # Implementation files
-│   │   ├── args.cpp
-│   │   ├── creator.cpp
-│   │   ├── grid.cpp
-│   │   ├── rule.cpp
-│   │   └── utils.cpp
-│   └── obj/                  # Compiled object files
-├── patterns/
-│   └── glider.txt            # Example glider pattern
-├── docs/
-│   └── readme-header.png     # README header image
-├── Makefile                  # Build configuration
-└── LICENSE                   # MIT License
+```sh
+% cloc .
+      26 text files.
+      24 unique files.
+       3 files ignored.
+
+github.com/AlDanial/cloc v 1.98  T=0.28 s (85.2 files/s, 5195.1 lines/s)
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+C++                              7            159             19            524
+Text                             7              0              0            140
+Markdown                         1             47              0            139
+C/C++ Header                     7             46            264             69
+make                             1              6              6             31
+INI                              1              2              0             11
+-------------------------------------------------------------------------------
+SUM:                            24            260            289            914
+-------------------------------------------------------------------------------
+
+% tree .
+.
+├── LICENSE
+├── Makefile
+├── README.md
+├── patterns
+│   ├── *.txt
+└── src
+    ├── include
+    │   ├── args.hpp
+    │   ├── constants.hpp
+    │   ├── creator.hpp
+    │   ├── files.hpp
+    │   ├── grid.hpp
+    │   ├── rule.hpp
+    │   └── utils.hpp
+    ├── lib
+    │   ├── args.cpp
+    │   ├── creator.cpp
+    │   ├── files.cpp
+    │   ├── grid.cpp
+    │   ├── rule.cpp
+    │   └── utils.cpp
+    └── main.cpp
+
+5 directories, 24 files
 ```
 
 ## Command Line Options 🛠️
