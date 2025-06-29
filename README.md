@@ -63,6 +63,8 @@
 ## Command Line Options 🛠️
 
 ```
+Usage: ./main [OPTIONS]
+
 Grid Configuration:
   -r, --rows <num>      Set the number of grid rows. Default: 20
   -c, --cols <num>      Set the number of grid columns. Default: 20
@@ -71,7 +73,7 @@ Grid Configuration:
 Simulation Settings:
   -g, --gens <num>      Set the number of generations to simulate. Default: 5
   -p, --prob <num>      Set the probability (0–100) of a cell being alive at start. Default: 80%
-  -m, --mode <num>      Set the simulation mode (0: Normal, 1: Iterative, 2: Movie, 3: Creator). Default: 0
+  -m, --mode <num>      Set the simulation mode (0: Normal, 1: Interactive, 2: Movie, 3: Creator). Default: 0
 
 General:
   -h, --help            Show this help message and exit.
@@ -148,6 +150,11 @@ make clean
 0 1 1 1 0
 0 0 0 0 0
 ```
+
+## To-Do 📌
+
+- [ ] When saving, let the user decide whether he wants to save as a grid or as a coordinate;
+- [ ] When you have a file as input, know how to identify whether it is a grid or coordinate file, and feed the grid from that.
 
 ## Contributing 🛠️
 
