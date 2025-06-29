@@ -17,7 +17,7 @@ void usage() {
     cout << "Simulation Settings:\n";
     cout << "  -g, --gens <num>\tSet the number of generations to simulate. Default: " << GENS << "\n";
     cout << "  -p, --prob <num>\tSet the probability (0–100) of a cell being alive at start. Default: " << PROB << "%\n";
-    cout << "  -m, --mode <num>\tSet the simulation mode (0: Normal, 1: Iterative, 2: Movie, 3: Creator). Default: " << NORMAL_MODE << "\n\n";
+    cout << "  -m, --mode <num>\tSet the simulation mode (0: Normal, 1: Interactive, 2: Movie, 3: Creator). Default: " << NORMAL_MODE << "\n\n";
 
     cout << "General:\n";
     cout << "  -h, --help\t\tShow this help message and exit.\n\n";
@@ -103,11 +103,11 @@ void parseArgs(int argc, char *argv[], int &rows, int &cols, int &gens, int &pro
                 mode = atoi(optarg);
 
                 if (mode != NORMAL_MODE
-                    && mode != ITERATIVE_MODE
+                    && mode != INTERACTIVE_MODE
                     && mode != MOVIE_MODE
                     && mode != CREATOR_MODE
                 ) {
-                    cerr << "Error: Invalid mode. Must be 0 (Normal), 1 (Iterative), 2 (Movie) or 3 (Pattern Editor)." << endl;
+                    cerr << "Error: Invalid mode. Must be 0 (Normal), 1 (Interactive), 2 (Movie) or 3 (Pattern Editor)." << endl;
                     exit(EXIT_FAILURE);
                 }
 
